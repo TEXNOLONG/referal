@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Рефералки банков РФ</title>
+<style>
+:root{--bg:#1e1e1e;--dot:#303030;--box:#262626;--bd:#3d3d3d;--tx:#dcddde;--mu:#9a9a9a;--ln:#6b6b6b;--ac:#7f6df2;--ok:#3fb950;--mid:#d29922;--low:#f85149;--bar:#252525;--lk:#7ab7ff;--gr:#2ea043;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="light"]{--bg:#f6f6f6;--dot:#d8d8d8;--box:#fff;--bd:#cfcfcf;--tx:#222;--mu:#666;--ln:#999;--bar:#ececec;--lk:#0b5fd6;color-scheme:light}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--tx);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow:hidden}
+#app{display:flex;flex-direction:column;height:100%}
+header{background:var(--bar);border-bottom:1px solid var(--bd);padding:8px 10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+h1{font-size:15px;margin:0 6px 0 0}
+input,select,button{background:var(--box);color:var(--tx);border:1px solid var(--bd);border-radius:6px;padding:7px 10px;font:inherit}
+input{flex:1 1 200px;min-width:0}
+button{cursor:pointer;white-space:nowrap}
+button.on{border-color:var(--ac);background:var(--ac);color:#fff}
+.g{display:flex;gap:4px;flex-wrap:wrap}
+#lg{font-size:12px;color:var(--mu);padding:6px 12px;display:flex;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--bd)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;flex:none}
+#list{flex:1;overflow:auto;padding:12px}
+#list>div{max-width:920px;margin:0 auto}
+section{margin-bottom:18px}
+section h2{font-size:16px;margin:0 0 6px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+a{color:var(--lk);text-decoration:none}a:hover{text-decoration:underline}
+h2 a{font-size:12px;font-weight:400}
+.r{background:var(--box);border:1px solid var(--bd);border-radius:8px;margin-bottom:6px}
+.r[open]{border-color:var(--ac)}
+summary{display:grid;grid-template-columns:9px 1fr auto auto;gap:4px 12px;align-items:center;padding:10px 12px;cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary small{display:block;color:var(--mu);font-size:10px;text-transform:uppercase}
+.y{color:var(--ok);font-weight:600;text-align:right;max-width:210px}.f{color:var(--tx);text-align:right;max-width:210px;font-size:13px}
+.d{padding:0 12px 10px 33px}.d p{margin:5px 0}.mu{color:var(--mu);font-size:12.5px}
+.s a{margin-right:12px;display:inline-block}
+@media(max-width:640px){summary{grid-template-columns:9px 1fr 1fr}.t{grid-column:2/4;font-weight:600}.y,.f{grid-column:auto;text-align:left;max-width:none}.y{grid-column:2}.d{padding-left:12px}}
+#cv{flex:1;position:relative;overflow:hidden;background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:22px 22px;cursor:grab;touch-action:none;display:none}
+#w{position:absolute;left:0;top:0;transform-origin:0 0}
+#e{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
+#e path{fill:none;stroke:var(--ln);stroke-width:1.4}
+.n{position:absolute;background:var(--box);border:1px solid var(--bd);border-radius:6px;padding:6px 9px;font-size:12px}
+.L0{border:2px solid var(--gr);font-weight:600}.L1,.L2{font-weight:600;cursor:pointer}
+.n a{display:block;margin-top:2px;font-weight:400}
+#zc{position:absolute;right:10px;bottom:10px;display:flex;gap:4px}
+body.g #list{display:none}body.g #cv{display:block}
+</style>
+</head>
+<body class="g">
+<div id="app">
+<header><h1>Рефералки банков РФ</h1>
+<input id="q" type="search" placeholder="Поиск: банк, продукт, условие">
+<div class="g" id="ks"><button data-k="">Все</button><button data-k="d">Дебет</button><button data-k="k">Кредит</button><button data-k="o">Другое</button></div>
+<select id="so"><option value="0">По банкам</option><option value="1">Сначала дороже</option></select>
+<select id="bk"></select>
+<div class="g" id="vw"><button data-v="l">Список</button><button data-v="g">Схема</button></div>
+<button id="bt">☀/☾</button></header>
+<div id="lg"><span><i class="dot" style="background:var(--ok)"></i> подтверждено материалом/правилами банка</span><span><i class="dot" style="background:var(--mid)"></i> вторичные источники</span><span><i class="dot" style="background:var(--low)"></i> одна неофициальная или устаревшая публикация</span><span>Проверено 30.10.2026. Суммы часто персональны — финально смотрите в приложении банка.</span></div>
+<div id="list"><div></div></div>
+<div id="cv"><div id="w"></div><div id="zc"><button id="b1">Свернуть</button><button id="b2">Развернуть</button><button id="bp">+</button><button id="bm">−</button></div></div>
+</div>
+<script>
+const bb='https://babki-is-banka.ru/akcii/akcii-privedi-druga-vseh-bankov/';
+const S={tj1:['Т—Ж (материал Т-Банка), 08.06.2026','https://t-j.ru/list/spec-bring-friend-tips/'],tj2:['Т—Ж, 09.06.2026','https://t-j.ru/spec-bring-friend/'],
+fa:['Финуслуги, 15.07.2026','https://finuslugi.ru/navigator/kak-ehto-rabotaet/stat_referalnaya-programma-alfa-banka'],
+fv:['Финуслуги, 23.07.2026','https://finuslugi.ru/navigator/kak-ehto-rabotaet/stat_referalnaya-programma-vtb-kak-poluchit-voznagrazhdenie-za-druga'],
+vd:['Правила ВТБ (дебет, PDF)','https://www.vtb.ru/media-files/vtb.ru/sitepages/personal/friends/usloviya_promo-akcii_rekomenduy_i_poluchay_deystvuyut_c_01.03.2025.pdf'],
+vc:['Правила ВТБ (кредит, PDF)','https://www.vtb.ru/media-files/vtb.ru/sitepages/personal/friends/rekomenduy_i_poluchay._kreditnaya_karta.pdf'],
+kb:['1000bankov, 28.09.2026','https://1000bankov.ru/wiki/privedi-druga---spisok-bankov-kotorye-platyat-za-rekomendacii/'],
+kod:['Код.ру (ОТП Банк), 03.06.2026','https://kod.ru/otp-bank-uluchshil-programmu-privedi-druga'],
+ak:['Ак Барс Банк, официальная страница','https://www.akbars.ru/individuals/nagrada-za-druzhbu/'],
+ba:['Бабки из Банка (Альфа)',bb+'alfa-bank-akciya-privedi-druga'],hal:['Бабки из Банка (Совкомбанк)',bb+'sovkombank-akciya-privedi-druga'],
+oz:['Бабки из Банка (Озон)',bb+'ozon-bank-akciya-privedi-druga'],pb:['Бабки из Банка (ПСБ)',bb+'psb-bank-akciya-privedi-druga'],
+ub:['Бабки из Банка (УБРИР)',bb+'ubrir-akciya-privedi-druga'],rs:['Бабки из Банка (Русский Стандарт)',bb+'russki-standart-bank-akciya-privedi-druga'],
+ga:['Бабки из Банка (Газпромбанк)','https://babki-is-banka.ru/500-rubley-za-oformlenie-debetovoy-karty-gazprombanka-po-akcii-privedi-druga'],
+yb:['Отзыв клиента, Финуслуги, 26.03.2026','https://finuslugi.ru/banki/yandeks_bank/otzyvy/other_services_27947'],
+sn:['Синара (страница, возможно устарела)','https://sinara.ru/chastnym-licam/karty/sinara_friends'],pd:['privedydruga.ru (≈2025)','https://privedydruga.ru/']};
+const C={ok:['var(--ok)','Подтверждено материалом или правилами банка, 2026'],mid:['var(--mid)','Вторичные источники 2026, сверено частично'],low:['var(--low)','Одна неофициальная или устаревшая публикация — проверить']};
+// [вид d/k/o, название, достоверность, вам, другу, условие, примечание, источники]
+const D=[
+['Т-Банк','https://www.tbank.ru/bonuses/friends/',[
+['d','Дебетовая (Black и др.)','ok','до 3 000 ₽','500 ₽ или бесплатное обслуживание навсегда','Друг: одна покупка от 500 ₽ одним чеком за 30 дней после заявки.','Сумма персональная (500–3 000 ₽), смотрите в приложении: значок подарка.','tj1 tj2'],
+['k','Кредитная (Platinum, All Airlines)','ok','до 4 000 ₽','Бесплатное обслуживание навсегда','Друг: одна покупка от 3 000 ₽ за 30 дней после заявки.','Суммы 2 000 и 5 000 ₽ встречаются в старых обзорах.','tj1'],
+['o','Счёт для бизнеса','ok','до 10 000 ₽','3 месяца бесплатного обслуживания','Любое действие из списка в правилах банка.','','tj1'],
+['o','Т-Премиум','ok','до 6 000 ₽','Бесплатный пробный период','Друг: баланс 500 000 ₽ 30 дней или траты 200 000 ₽ за 30 дней.','','tj1'],
+['o','Сим-карта Т-Мобайл','ok','от 500 бонусов или ₽ на связь','500 бонусов и сервисы бесплатно','Друг: пополнить на 500 ₽ одним платежом за 100 дней.','','tj1'],
+['o','Счёт для инвестиций','ok','акции до 5 000 ₽','акции до 5 000 ₽','Друг: купить бумаги от 10 000 ₽ и держать портфель выше этой суммы 24 часа.','Премиальный тариф: вам акции до 4 000 ₽, другу до 20 000 ₽ и месяц Т-Премиум.','tj1'],
+['d','Детская (Джуниор) и для автовладельцев','mid','300 ₽','200–500 баллов','Друг: потратить 50 ₽ (Джуниор) или 300 ₽ (авто) за 90 дней.','Условия на момент приглашения автором статьи.','tj2'],
+['o','Кредит наличными','mid','до 5 000 ₽','Повышенный лимит','Друг: перевести одобренный кредит на карту за 30 дней.','','tj2']]],
+['Альфа-Банк','https://alfabank.ru/lp/retail/friends/',[
+['d','Альфа-Карта с кэшбэком','mid','1 500 ₽','500 ₽ (по агрегаторам)','Друг: новый клиент, покупка по карте (перевод и снятие не считаются). Вы: за 90 дней до/после потратить от 3 000 ₽ или сделать 5+ покупок.','Лимит выплат за дебетовые — 50 000 ₽ в месяц. В обзоре Финуслуг сумма другу не указана.','fa kb ba'],
+['d','Альфа-Карта + Детская','mid','1 300 ₽','—','Покупка по обеим картам.','','fa'],
+['d','Детская с кэшбэком','mid','800 ₽','—','Покупка по карте.','','fa'],
+['d','Alfa Travel, Альфа-Стикер','mid','1 000 ₽','500 ₽','Покупка по карте или стикером.','Карты для болельщиков и иностранцев — по 1 000 ₽.','fa'],
+['k','Кредитная','mid','2 500 ₽','Не указано','Те же условия: друг — новый клиент, покупка по карте.','В отдельных волнах до 4 000 ₽ (1000bankov).','fa kb'],
+['o','Счёт для инвестиций','mid','2 000 ₽','—','Друг: брокерский счёт, бумаги от 5 000 ₽ и покупка по Альфа-Карте.','','fa'],
+['o','Пенсия с Альфа-Картой','mid','1 500 ₽','—','Друг получает пенсию в банке и платит картой.','','fa'],
+['o','Самозанятость с картой','mid','1 500 ₽','1 000 ₽','Подтвердить самозанятость в банке и сделать покупку.','','fa'],
+['o','Alfa Only (премиум)','mid','7 000 ₽','3 000 ₽','Остаток на картах 3 млн ₽ на второй месяц и покупки.','','fa'],
+['o','Регистрация бизнеса / счёт ИП и ООО','mid','4 000 ₽','—','Зарегистрировать бизнес или открыть счёт.','1000bankov: РКО 7 000/7 000 ₽, регистрация 4 000/2 000 ₽ — расхождение.','fa kb'],
+['o','«Всё в Альфа-Банке»','mid','до 7 000 ₽','—','Оформить все продукты и выполнить условия по ним.','','fa']]],
+['ВТБ','https://www.vtb.ru/personal/friends/',[
+['d','Дебетовая','ok','1 000 ₽','1 000 ₽','Друг: нет дебетовой ВТБ за 365 дней; покупки от 5 000 ₽ за 30 дней. Вы: хотя бы одна покупка по своей карте ВТБ.','До 50 выплат в месяц.','fv vd kb'],
+['k','Кредитная','ok','2 000 ₽','1 000 ₽','Друг: нет кредитки ВТБ за 365 дней; покупки на 5 000 ₽ за 30 дней. Вы: покупка по своей карте каждый месяц.','До 10 выплат в месяц.','fv vc kb'],
+['o','Зарплатная карта','ok','до 2 000 ₽','Кэшбэк 5% на кафе 60 дней','Друг: зарплата от 40 000 ₽ в одном из первых 3 месяцев и покупка за 120 дней.','1 500 ₽ + 500 ₽, если друг потратит от 5 000 ₽.','fv'],
+['o','Накопительный ВТБ-Счёт','ok','1 000 ₽','2 000 ₽','Друг: пополнить на 100 000 ₽ за 30 дней и держать остаток 90 дней.','','fv'],
+['o','Перевод пенсии','ok','1 000 ₽','1 000 ₽','Друг: пенсия в ВТБ и покупка за 120 дней.','','fv'],
+['o','Пакет «Привилегия»','ok','7 000 ₽','Бесплатно до 3 месяцев','Друг: покупки от 150 000 ₽ или активы от 2 млн ₽ за 60 дней.','','fv']]],
+['Сбербанк','',[
+['d','Карты (дебет и кредит)','low','Индивидуально','По условиям акции','Персональное предложение в СберБанк Онлайн и СберСпасибо.','Единой публичной суммы по картам не найдено.','kb'],
+['o','Бизнес «Все в плюсе»','low','5 000 ₽','3 000 ₽ + 3 000 ₽ от Купера','Друг-предприниматель: оплата от 1 000 ₽ за 30 дней.','','kb']]],
+['Ак Барс Банк','https://www.akbars.ru/individuals/nagrada-za-druzhbu/',[
+['d','Ак Барс Карта и Карта жителя РТ','ok','2 000 ₽','500 ₽','Друг: не клиент 6 месяцев, активировать карту и купить от 3 000 ₽ за 15 дней.','Выплата в течение 33 дней.','ak']]],
+['ОТП Банк','',[
+['d','Дебетовая','mid','1 000 ₽ (в июне была акция 2 000 ₽)','500 ₽','Друг: от 3 000 ₽ за 30 дней. Вы: минимум одна покупка.','Июнь 2026: временно 2 000 ₽ за покупку от 500 ₽ (до 16.06). Программа до 01.02.2027.','kb kod'],
+['k','Кредитная','mid','1 500 ₽','500 ₽','Друг: от 3 000 ₽ за 30 дней. Вы: минимум одна покупка.','','kb'],
+['d','Премиальная','mid','2 500 ₽','2 500 ₽','Друг: от 100 000 ₽ за 30 дней.','','kb']]],
+['МКБ','',[
+['d','Дебетовая','low','от 1 000 ₽','500 баллов','Условия для друга в обзоре не раскрыты.','Баллы до 20-го числа следующего месяца, 1 балл = 1 ₽.','kb'],
+['o','Вклад','low','1 500 ₽','500 баллов','Друг: вклад от 300 000 ₽ на 3 месяца, держать 30 дней.','Premium: 1 000 ₽ вам, 1 000 баллов другу.','kb']]],
+['Совкомбанк','',[['d','Халва / дебетовая','low','1 000 баллов','Не указано','Оформить по ссылке и выполнить условия акции.','Баллы компенсируют покупки у партнёров, 1 балл = 1 ₽.','hal']]],
+['Озон Банк','',[['k','Кредитная','low','500 ₽','500 ₽','Условия активации в источнике не раскрыты.','Зарплатная карта — 300 ₽ вам.','oz']]],
+['ПСБ','',[['d','Дебетовая «Твой кэшбэк»','low','0,5% от трат друга (до 1 000 баллов в мес.)','Не указано','Вы и друг: покупки от 5 000 ₽ в месяц; платят 12 месяцев.','Баллы в рубли 1:1 от 500 баллов.','pb']]],
+['Яндекс Банк','',[['d','Карта Яндекс Пэй','low','500 баллов','Не указано','Друг — новый клиент, открывает счёт и карту по ссылке.','Данные из отзывов клиентов 2026; есть жалобы на невыплату.','yb']]],
+['Газпромбанк','',[['d','Дебетовая «Мир»','low','≈500 ₽ (баллами)','Не указано','Друг оформляет по ссылке и совершает расходную операцию.','Подтверждения 2026 не нашёл.','ga']]],
+['Русский Стандарт','',[['d','Дебет, кредит, премиум','low','до 3 000 баллов','Не указано','Зависит от продукта; по кредитной в отзыве — 500 баллов.','','rs']]],
+['УБРИР','',[['d','Дебетовая','low','1 000 ₽','Не указано','Условия в источнике не раскрыты.','','ub']]],
+['МТС Банк','',[['k','Кредитная','low','1 500 ₽','1 500 ₽','Условия в источнике не раскрыты.','Данные ≈2025 — вероятно устарели.','pd']]],
+['Синара','',[['d','Карты Синара','low','до 1 000 баллов в мес. за друга','—','Друг: покупки от 2 000 ₽ в месяц.','Страница банка давняя — проверьте.','sn']]]
+];
+const K={d:'Дебет',k:'Кредит',o:'Другое'};
+const $=s=>document.querySelector(s),st={x:20,y:20,k:.9},f={k:'',q:'',s:'0',v:innerWidth<720?'l':'g'};
+const open=new Set(D.slice(0,3).map(b=>b[0]));
+const lk=(a,t)=>`<a href="${a}" target="_blank" rel="noopener noreferrer">${t} ↗</a>`;
+const num=s=>{const m=s.replace(/\s/g,'').match(/\d+(?:,\d+)?/);return m?parseFloat(m[0].replace(',','.')):-1};
+function data(){let r=D.map(b=>({n:b[0],u:b[1],r:b[2].filter(x=>(!f.k||x[0]==f.k)&&(!f.q||(b[0]+x.join(' ')).toLowerCase().includes(f.q)))})).filter(b=>b.r.length);
+ if(f.s=='1'){r.forEach(b=>b.r.sort((a,c)=>num(c[3])-num(a[3])));r.sort((a,c)=>num(c.r[0][3])-num(a.r[0][3]))}return r}
+const srcs=k=>k.split(' ').map(x=>lk(S[x][1],S[x][0])).join('');
+function list(){const L=data();$('#list>div').innerHTML=L.length?L.map((b,i)=>`<section id="s${i}"><h2>${b.n}${b.u?lk(b.u,'страница банка'):'<span class="mu">официальная страница не найдена</span>'}</h2>`+b.r.map(x=>`<details class="r"><summary><i class="dot" style="background:${C[x[2]][0]}"></i><span class="t">${x[1]} <span class="mu">· ${K[x[0]]}</span></span><span class="y"><small>Вам</small>${x[3]}</span><span class="f"><small>Другу</small>${x[4]}</span></summary><div class="d"><p>${x[5]}</p>${x[6]?`<p class="mu">${x[6]}</p>`:''}<p class="mu">${C[x[2]][1]}</p><p class="s">${srcs(x[7])}</p></div></details>`).join('')+'</section>').join(''):'<p class="mu">Ничего не найдено.</p>';
+ $('#bk').innerHTML='<option value="">К банку…</option>'+L.map((b,i)=>`<option value="${i}">${b.n}</option>`).join('')}
+// --- схема (слева направо) ---
+const W=[80,130,190,250,210],HG=44,G=8,X=[];W.reduce((a,w,i)=>(X[i]=a,a+w+HG),0);
+const cv=$('#cv'),w=$('#w');let root,all=[];
+const N=(l,h,k=[],b)=>({l,h,k,b});
+function tree(L){root=N(0,'Рефералки',L.map(b=>N(1,b.n+(b.r.length?` <span class="mu">${open.has(b.n)?'◂':'▸'} ${b.r.length}</span>`:''),open.has(b.n)?b.r.map(x=>N(2,`<i class="dot" style="background:${C[x[2]][0]}"></i> ${x[1]}<div class="mu">${K[x[0]]}</div>`,[N(3,`<b>Условие</b><br>${x[5]}${x[6]?`<div class="mu">${x[6]}</div>`:''}`,[N(4,`<b>Вам:</b> ${x[3]}`),N(4,`<b>Другу:</b> ${x[4]}`),N(4,`<b>Источники</b>`+x[7].split(' ').map(k=>lk(S[k][1],S[k][0])).join(''))])])):[],b.n)))}
+const sp=n=>n.col||!n.k.length?n.hh+G:Math.max(n.hh+G,n.k.reduce((s,c)=>s+sp(c),0));
+function pl(n,y){n.s=sp(n);n.cy=y+n.s/2;const t=n.k.reduce((s,c)=>s+sp(c),0);let c=y+(n.s-t)/2;n.k.forEach(k=>{pl(k,c);c+=sp(k)})}
+function graph(){const L=data();tree(L);
+ w.innerHTML='<svg id="e"><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" style="fill:var(--ln)"/></marker></defs></svg>';
+ all=[];(function g(n){all.push(n);n.k.forEach(g)})(root);
+ all.forEach((n,i)=>{const d=document.createElement('div');d.className='n L'+n.l;d.style.width=W[n.l]+'px';d.innerHTML=n.h;d.dataset.i=i;w.append(d);n.d=d;n.hh=d.offsetHeight});
+ pl(root,0);const e=$('#e');e.setAttribute('width',X[4]+W[4]);e.setAttribute('height',root.s);
+ all.forEach(n=>{n.d.style.left=X[n.l]+'px';n.d.style.top=n.cy-n.hh/2+'px';n.k.forEach(c=>{const x1=X[n.l]+W[n.l],x2=X[c.l],p=document.createElementNS('http://www.w3.org/2000/svg','path');
+  p.setAttribute('d',`M${x1} ${n.cy}C${x1+HG/2} ${n.cy} ${x2-HG/2} ${c.cy} ${x2-2} ${c.cy}`);p.setAttribute('marker-end','url(#a)');e.append(p)})});ap()}
+const ap=()=>w.style.transform=`translate(${st.x}px,${st.y}px) scale(${st.k})`;
+function zoom(m,px=cv.clientWidth/2,py=cv.clientHeight/2){const k=Math.min(1.6,Math.max(.2,st.k*m));st.x=px-(px-st.x)*k/st.k;st.y=py-(py-st.y)*k/st.k;st.k=k;ap()}
+let dr=null,mv=0;
+cv.addEventListener('pointerdown',e=>{if(e.target.closest('a,button'))return;dr={x:e.clientX-st.x,y:e.clientY-st.y,a:e.clientX,b:e.clientY};mv=0});
+addEventListener('pointermove',e=>{if(!dr)return;st.x=e.clientX-dr.x;st.y=e.clientY-dr.y;mv=Math.hypot(e.clientX-dr.a,e.clientY-dr.b);ap()});
+addEventListener('pointerup',()=>dr=null);
+cv.addEventListener('wheel',e=>{e.preventDefault();const r=cv.getBoundingClientRect();zoom(e.deltaY<0?1.1:.9,e.clientX-r.left,e.clientY-r.top)},{passive:false});
+w.addEventListener('click',e=>{if(mv>5||e.target.closest('a'))return;const el=e.target.closest('.L1');if(!el)return;const n=all[el.dataset.i];open.has(n.b)?open.delete(n.b):open.add(n.b);graph()});
+$('#b1').onclick=()=>{open.clear();graph();st.x=20;st.y=20;ap()};
+$('#b2').onclick=()=>{D.forEach(b=>open.add(b[0]));graph();st.x=20;st.y=20;st.k=.6;ap()};
+$('#bp').onclick=()=>zoom(1.2);$('#bm').onclick=()=>zoom(.83);
+function go(){document.body.className=f.v;document.querySelectorAll('#vw button').forEach(b=>b.classList.toggle('on',b.dataset.v==f.v));
+ document.querySelectorAll('#ks button').forEach(b=>b.classList.toggle('on',b.dataset.k==f.k));list();graph()}
+$('#q').oninput=e=>{f.q=e.target.value.trim().toLowerCase();go()};
+$('#so').onchange=e=>{f.s=e.target.value;go()};
+$('#ks').onclick=e=>{if(e.target.dataset.k!=null){f.k=e.target.dataset.k;go()}};
+$('#vw').onclick=e=>{if(e.target.dataset.v){f.v=e.target.dataset.v;go()}};
+$('#bk').onchange=e=>{const i=e.target.value;if(i==='')return;const n=data()[i].n;
+ if(f.v=='l'){document.getElementById('s'+i).scrollIntoView({behavior:'smooth'})}else{open.add(n);graph();const b=all.find(x=>x.l==1&&x.b==n);st.k=.9;st.x=20-X[1]*.9;st.y=cv.clientHeight/2-b.cy*.9;ap()}e.target.value=''};
+$('#bt').onclick=()=>{const r=document.documentElement;r.dataset.theme=r.dataset.theme=='light'?'dark':'light'};
+go();
+</script>
+</body>
+</html>
